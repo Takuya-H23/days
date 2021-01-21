@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
-import { Grid } from "@material-ui/core"
+import { Grid, Box } from "@material-ui/core"
+import Aside from "../Aside"
 
 const aside = { xs: 12, sm: 12, md: 3, lg: 3, xl: 1 }
 const main = { xs: 12, sm: 12, md: 9, lg: 9, xl: 11 }
@@ -8,10 +9,12 @@ export default function Layout({ children }) {
   return (
     <Grid container>
       <Grid item {...aside}>
-        <aside>aside</aside>
+        <Box p={[2, 2, 2, 2, 2]}>
+          <Aside />
+        </Box>
       </Grid>
       <Grid item {...main}>
-        {children}
+        <Box p={[2, 2, 2, 2, 2]}>{children}</Box>
       </Grid>
     </Grid>
   )

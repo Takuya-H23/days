@@ -1,4 +1,4 @@
-import { Layout } from "../src/elements"
+import { Layout } from "../src/components"
 export default function Index() {
   return (
     <Layout>
