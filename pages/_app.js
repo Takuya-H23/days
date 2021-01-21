@@ -1,5 +1,7 @@
 import { useEffect } from "react"
 import Head from "next/head"
+import { ThemeProvider } from "@material-ui/core"
+import { dark } from "../src/utils/theme"
 import "../styles/globals.css"
 
 export default function App({ Component, pageProps }) {
@@ -19,7 +21,9 @@ export default function App({ Component, pageProps }) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <Component {...pageProps} />
+      <ThemeProvider theme={dark}>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   )
 }
