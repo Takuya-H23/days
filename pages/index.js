@@ -1,8 +1,6 @@
+import { Box } from "@material-ui/core"
 import { Layout } from "../src/components"
+
 export default function Index() {
-  return (
-    <Layout>
-      <div>main</div>
-    </Layout>
-  )
+  return <Layout>here</Layout>
 }
