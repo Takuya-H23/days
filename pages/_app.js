@@ -1,8 +1,11 @@
+import { QueryClientProvider, QueryClient } from "react-query"
 import { useEffect } from "react"
 import Head from "next/head"
 import { ThemeProvider } from "@material-ui/core"
 import { dark } from "../src/utils/theme"
 import "../styles/globals.css"
+
+const queryClient = new QueryClient()
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -21,9 +24,11 @@ export default function App({ Component, pageProps }) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <ThemeProvider theme={dark}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={dark}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </QueryClientProvider>
     </>
   )
 }
