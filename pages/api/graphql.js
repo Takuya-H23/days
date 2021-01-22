@@ -1,15 +1,21 @@
-import { Pool } from "pg"
+import { ApolloServer } from "apollo-server-micro"
+import typeDefs from "./schemas"
+import resolvers from "./resolvers"
 
-const pool = new Pool({
-  connectionString: process.env.DB_CONNECTION_STRING
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => {
+    return {}
+  }
 })
 
-export default async (req, res) => {
-  const client = await pool.connect()
-  const users = await client.query("SELECT * FROM users")
-
-  res.json({
-    status: "ok",
-    users
-  })
+export const config = {
+  api: {
+    bodyParser: false
+  }
 }
+
+const handler = apolloServer.createHandler({ path: "/api/graphql" })
+
+export default handler
