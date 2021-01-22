@@ -13,8 +13,9 @@ function useUsers() {
         query {
           users {
             user_id
-            username
             full_name
+            last_login
+            created_at
           }
         }
       `
@@ -27,10 +28,12 @@ export default function Index() {
   const { status, data, error, isFetching } = useUsers()
   if (isFetching) return <div>Loading...</div>
   const { users } = data
+  console.log(users)
 
   return (
     <Layout>
       <pre>{JSON.stringify(users)}</pre>
+      hi
     </Layout>
   )
 }
