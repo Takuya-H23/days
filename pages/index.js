@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useQuery } from "react-query"
 import { request, gql } from "graphql-request"
+import { Typography } from "@material-ui/core"
 import { Layout } from "../src/components"
 
 const endpoint = "/api/graphql"
@@ -28,12 +29,13 @@ export default function Index() {
   const { status, data, error, isFetching } = useUsers()
   if (isFetching) return <div>Loading...</div>
   const { users } = data
-  console.log(users)
 
   return (
     <Layout>
+      <Typography variant="h1" align="center">
+        Days
+      </Typography>
       <pre>{JSON.stringify(users)}</pre>
-      hi
     </Layout>
   )
 }
