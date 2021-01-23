@@ -1,36 +1,13 @@
-import { useEffect, useState } from 'react'
-import { useMutation } from 'react-query'
-import { request, gql } from 'graphql-request'
+import { useState } from 'react'
 import { Button, TextField } from '@material-ui/core'
 import { Layout } from '../src/components'
+import { useSignUp } from '../src/hooks'
 
 const iv = { username: '', full_name: '', email: '', password: '' }
 
-const endpoint = '/api/graphql'
-
-const signUp = gql`
-  mutation($input: SignUpInput) {
-    signUp(input: $input) {
-      user {
-        username
-        full_name
-        email
-        created_at
-      }
-    }
-  }
-`
-
-function useUser(variables) {
-  return useMutation('user', async () => {
-    const data = await request(endpoint, signUp, variables)
-    return data
-  })
-}
-
 export default function SignUp() {
-  const [{ username, full_name, email, password }, setState] = useState(iv)
-  const mutation = useUser({ input: { username, full_name, email, password } })
+  const [input, setInput] = useState(iv)
+  const mutation = useSignUp({ input })
 
   const onSubmit = e => {
     e.preventDefault()
@@ -39,7 +16,7 @@ export default function SignUp() {
 
   const handleChange = e => {
     const { name, value } = e.target
-    setState(cur => ({
+    setInput(cur => ({
       ...cur,
       [name]: value
     }))
@@ -51,7 +28,7 @@ export default function SignUp() {
         <TextField
           name="username"
           onChange={handleChange}
-          value={username}
+          value={input.username}
           label="username"
           type="text"
           variant="outlined"
@@ -59,7 +36,7 @@ export default function SignUp() {
         <TextField
           name="full_name"
           onChange={handleChange}
-          value={full_name}
+          value={input.full_name}
           label="full_name"
           type="text"
           variant="outlined"
@@ -67,7 +44,7 @@ export default function SignUp() {
         <TextField
           name="email"
           onChange={handleChange}
-          value={email}
+          value={input.email}
           label="email"
           type="email"
           variant="outlined"
@@ -75,7 +52,7 @@ export default function SignUp() {
         <TextField
           name="password"
           onChange={handleChange}
-          value={password}
+          value={input.password}
           label="password"
           type="password"
           variant="outlined"
