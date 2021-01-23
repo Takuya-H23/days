@@ -1,18 +1,19 @@
-import { useEffect } from "react"
-import { useQuery } from "react-query"
-import { request, gql } from "graphql-request"
-import { Typography } from "@material-ui/core"
-import { Layout } from "../src/components"
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
+import { request, gql } from 'graphql-request'
+import { Typography } from '@material-ui/core'
+import { Layout } from '../src/components'
 
-const endpoint = "/api/graphql"
+const endpoint = '/api/graphql'
 
 function useUsers() {
-  return useQuery("users", async () => {
+  return useQuery('users', async () => {
     const data = await request(
       endpoint,
       gql`
         query {
-          users {
+          user {
             user_id
             full_name
             last_login
@@ -27,15 +28,16 @@ function useUsers() {
 
 export default function Index() {
   const { status, data, error, isFetching } = useUsers()
+  const router = useRouter()
   if (isFetching) return <div>Loading...</div>
-  const { users } = data
+  console.log(data)
 
   return (
     <Layout>
       <Typography variant="h1" align="center">
         Days
       </Typography>
-      <pre>{JSON.stringify(users)}</pre>
+      {/* <pre>{JSON.stringify(users)}</pre> */}
     </Layout>
   )
 }
