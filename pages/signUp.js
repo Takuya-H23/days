@@ -1,6 +1,11 @@
 import Link from 'next/link'
 import { Button, TextField, Typography } from '@material-ui/core'
-import { AccountBox, Email, VisibilityOff } from '@material-ui/icons'
+import {
+  AccountBox,
+  Email,
+  PermIdentity,
+  VisibilityOff
+} from '@material-ui/icons'
 import { Layout } from '../src/components'
 import { useForm, useSignUp } from '../src/hooks'
 
@@ -30,15 +35,6 @@ export default function SignUp() {
           InputProps={{
             endAdornment: <AccountBox />
           }}
-          type="text"
-          variant="outlined"
-          fullWidth
-        />
-        <TextField
-          name="full_name"
-          onChange={handleChange}
-          value={input.full_name}
-          label="full_name"
           type="text"
           variant="outlined"
           fullWidth
