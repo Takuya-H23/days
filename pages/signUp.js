@@ -1,27 +1,18 @@
-import { useState } from 'react'
 import Link from 'next/link'
 import { Button, TextField, Typography } from '@material-ui/core'
 import { AccountBox, Email, VisibilityOff } from '@material-ui/icons'
 import { Layout } from '../src/components'
-import { useSignUp } from '../src/hooks'
+import { useForm, useSignUp } from '../src/hooks'
 
 const iv = { username: '', full_name: '', email: '', password: '' }
 
 export default function SignUp() {
-  const [input, setInput] = useState(iv)
+  const [input, handleChange] = useForm(iv)
   const mutation = useSignUp({ input })
 
   const onSubmit = e => {
     e.preventDefault()
     mutation.mutate()
-  }
-
-  const handleChange = e => {
-    const { name, value } = e.target
-    setInput(cur => ({
-      ...cur,
-      [name]: value
-    }))
   }
 
   return (
