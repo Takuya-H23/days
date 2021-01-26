@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import { Button, TextField, Typography } from '@material-ui/core'
 import {
-  AccountBox,
-  Email,
-  PermIdentity,
-  VisibilityOff
-} from '@material-ui/icons'
+  Button,
+  CircularProgress,
+  TextField,
+  Typography
+} from '@material-ui/core'
+import { AccountBox, Email, VisibilityOff } from '@material-ui/icons'
 import { Layout } from '../src/components'
 import { useForm, useSignUp } from '../src/hooks'
 
@@ -14,10 +14,16 @@ const iv = { username: '', email: '', password: '' }
 export default function SignUp() {
   const [input, handleChange] = useForm(iv)
   const mutation = useSignUp({ input })
+  console.log(mutation)
 
   const onSubmit = e => {
     e.preventDefault()
     mutation.mutate()
+  }
+
+  if (mutation.isLoading) return <CircularProgress />
+  if (mutation.isError) {
+    return <Typography variant="h1">Something went wrong</Typography>
   }
 
   return (
