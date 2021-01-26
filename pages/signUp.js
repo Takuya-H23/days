@@ -9,7 +9,7 @@ import {
 import { Layout } from '../src/components'
 import { useForm, useSignUp } from '../src/hooks'
 
-const iv = { username: '', full_name: '', email: '', password: '' }
+const iv = { username: '', email: '', password: '' }
 
 export default function SignUp() {
   const [input, handleChange] = useForm(iv)

@@ -15,8 +15,8 @@ export default {
     signUp: async (_, { input }) => {
       const { username, full_name, email, password } = input
       const user = await pool.query(
-        'INSERT INTO users (username, full_name, email, password, created_at) VALUES ($1, $2, $3, $4, NOW()) RETURNING username, full_name, email, created_at',
-        [username, full_name, email, password]
+        'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING username, email, created_at',
+        [username, email, password]
       )
       return { user: user.rows[0] }
     }

@@ -7,7 +7,6 @@ const signUp = gql`
     signUp(input: $input) {
       user {
         username
-        full_name
         email
         created_at
       }

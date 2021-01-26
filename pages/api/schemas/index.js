@@ -14,7 +14,6 @@ export default gql`
     user_id: ID!
     username: String!
     email: String!
-    full_name: String!
     created_at: String!
     last_login: String
   }
@@ -25,7 +24,6 @@ export default gql`
 
   input SignUpInput {
     username: String!
-    full_name: String!
     email: String!
     password: String!
   }
