@@ -14,8 +14,7 @@ const iv = { username: '', email: '', password: '' }
 export default function SignUp() {
   const [input, handleChange] = useForm(iv)
   const mutation = useSignUp({ input })
-  console.log(mutation)
-
+  // TODO: provide error message such as "this username is unavailable"
   const onSubmit = e => {
     e.preventDefault()
     mutation.mutate()
