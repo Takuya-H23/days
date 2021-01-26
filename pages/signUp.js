@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core'
 import { AccountBox, Email, VisibilityOff } from '@material-ui/icons'
 import { Layout } from '../src/components'
+import { Field } from '../src/elements'
 import { useForm, useSignUp } from '../src/hooks'
 
 const iv = { username: '', email: '', password: '' }
@@ -32,30 +33,8 @@ export default function SignUp() {
         Start your developer tool from here!
       </Typography>
       <form onSubmit={onSubmit}>
-        <TextField
-          name="username"
-          onChange={handleChange}
-          value={input.username}
-          label="username"
-          InputProps={{
-            endAdornment: <AccountBox />
-          }}
-          type="text"
-          variant="outlined"
-          fullWidth
-        />
-        <TextField
-          name="email"
-          onChange={handleChange}
-          value={input.email}
-          InputProps={{
-            endAdornment: <Email />
-          }}
-          label="email"
-          type="email"
-          variant="outlined"
-          fullWidth
-        />
+        <Field name="username" onChange={handleChange} value={input.username} />
+        <Field name="email" onChange={handleChange} value={input.email} />
         <TextField
           name="password"
           onChange={handleChange}
