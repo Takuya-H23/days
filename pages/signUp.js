@@ -35,17 +35,10 @@ export default function SignUp() {
       <form onSubmit={onSubmit}>
         <Field name="username" onChange={handleChange} value={input.username} />
         <Field name="email" onChange={handleChange} value={input.email} />
-        <TextField
+        <Field.Password
           name="password"
           onChange={handleChange}
           value={input.password}
-          InputProps={{
-            endAdornment: <VisibilityOff />
-          }}
-          label="password"
-          type="password"
-          variant="outlined"
-          fullWidth
         />
         <Button variant="contained" type="submit" onClick={onSubmit}>
           Sign up
