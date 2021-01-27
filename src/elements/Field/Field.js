@@ -1,5 +1,5 @@
 import { createElement, useState } from 'react'
-import { IconButton, TextField } from '@material-ui/core'
+import { Box, IconButton, TextField } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import {
   AccountBox,
@@ -7,6 +7,7 @@ import {
   Visibility,
   VisibilityOff
 } from '@material-ui/icons'
+import useStyles from './useStyles'
 
 const icons = {
   username: AccountBox,
@@ -16,6 +17,7 @@ const icons = {
 }
 
 function Field({ name, value, onChange, type, ...rest }) {
+  const cls = useStyles()
   return (
     <TextField
       name={name}
@@ -23,7 +25,9 @@ function Field({ name, value, onChange, type, ...rest }) {
       onChange={onChange}
       type={type}
       InputProps={{
-        endAdornment: createElement(icons[name])
+        endAdornment: (
+          <Box className={cls.root}>{createElement(icons[name])}</Box>
+        )
       }}
       label={name}
       variant="outlined"
