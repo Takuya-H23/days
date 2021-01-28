@@ -9,9 +9,15 @@ const cookieConfig = {
   maxAge: 6 * 60 * 60
 }
 
+// extractUser:: [a] -> a
 export const extractUser = compose(head, prop('rows'))
 
-export const genToken = (secret, id) => jwt.sign({ id }, secret)
+// genToken:: ({ string, string}) -> string
+const genToken = ({ id, secret }) => jwt.sign({ id }, secret)
 
-export const setCookie = cookies => token => () =>
+// setCookie:: a -> string -> (_ -> _)
+const setCookie = cookies => token => () =>
   cookies.set(COOKIE, token, cookieConfig)
+
+// setAuthCookie:: a -> b -> (_ -> _)
+export const setAuthCookie = cookie => compose(setCookie(cookie), genToken)
