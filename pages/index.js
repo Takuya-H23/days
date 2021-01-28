@@ -31,7 +31,6 @@ export default function Index() {
   const router = useRouter()
   if (isFetching) return <div>Loading...</div>
   console.log(data)
-  consol.log('hit')
 
   return (
     <Layout>

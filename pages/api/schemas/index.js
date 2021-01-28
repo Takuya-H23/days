@@ -7,7 +7,7 @@ export default gql`
   }
 
   type Mutation {
-    signUp(input: SignUpInput): AuthPayload!
+    signUp(input: SignUpInput): User!
   }
 
   type User {
@@ -16,10 +16,6 @@ export default gql`
     email: String!
     created_at: String!
     last_login: String
-  }
-
-  type AuthPayload {
-    user: User!
   }
 
   input SignUpInput {

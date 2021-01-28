@@ -5,11 +5,9 @@ import { ENDPOINT } from '../utils/locale/constants'
 const signUp = gql`
   mutation($input: SignUpInput) {
     signUp(input: $input) {
-      user {
-        username
-        email
-        created_at
-      }
+      username
+      email
+      created_at
     }
   }
 `
