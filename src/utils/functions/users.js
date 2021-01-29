@@ -1,7 +1,7 @@
 import { prop, head, compose } from 'ramda'
 import jwt from 'jsonwebtoken'
-import { Reader } from 'fp-utils-types'
-import { COOKIE } from '../locale/constants'
+import IO from 'crocks/IO'
+import { AUTH_COOKIE } from '../locale/constants'
 
 const cookieConfig = {
   httpOnly: true,
@@ -15,9 +15,8 @@ export const extractUser = compose(head, prop('rows'))
 // genToken:: ({ string, string}) -> string
 const genToken = ({ id, secret }) => jwt.sign({ id }, secret)
 
-// setCookie:: a -> string -> (_ -> _)
-const setCookie = cookies => token => () =>
-  cookies.set(COOKIE, token, cookieConfig)
-
-// setAuthCookie:: a -> b -> (_ -> _)
-export const setAuthCookie = cookie => compose(setCookie(cookie), genToken)
+// a -> b -> IO c
+export const setAuthCookie = cookies => config =>
+  IO.of(config)
+    .map(genToken)
+    .map(token => cookies.set(AUTH_COOKIE, token, cookieConfig))

@@ -13,6 +13,7 @@
     "apollo-server-micro": "^2.19.2",
     "bcryptjs": "^2.4.3",
     "cookies": "^0.8.0",
+    "crocks": "^0.12.4",
     "fp-utils-types": "^1.5.1",
     "graphql-request": "^3.4.0",
     "jsonwebtoken": "^8.5.1",
