@@ -10,14 +10,17 @@ export default async function signUp(_, { input }, { cookies, pool }) {
   const { username, email, password } = input
   const hashed = await hash(password, 10)
 
-  const res = await pool.query(query, [username, email, hashed])
+  try {
+    const res = await pool.query(query, [username, email, hashed])
+    const user = extractUser(res)
 
-  const user = extractUser(res)
+    setAuthCookie(cookies)({
+      id: user.user_id,
+      secret: process.env.JWT_SECRET
+    }).run()
 
-  setAuthCookie(cookies)({
-    id: user.user_id,
-    secret: process.env.JWT_SECRET
-  }).run()
-
-  return user
+    return user
+  } catch (e) {
+    return e
+  }
 }
