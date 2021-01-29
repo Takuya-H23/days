@@ -4,7 +4,7 @@ import { users } from '../../../src/utils/functions'
 const { extractUser, setAuthCookie } = users
 
 const query =
-  'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING username, email, created_at'
+  'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING user_id, username, email, created_at'
 
 export default async function signUp(_, { input }, { cookies, pool }) {
   const { username, email, password } = input
@@ -14,7 +14,10 @@ export default async function signUp(_, { input }, { cookies, pool }) {
 
   const user = extractUser(res)
 
-  setAuthCookie(cookies)({ id: user.id, secret: process.env.JWT_SECRET })()
+  setAuthCookie(cookies)({
+    id: user.user_id,
+    secret: process.env.JWT_SECRET
+  }).run()
 
   return user
 }
