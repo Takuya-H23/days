@@ -2,7 +2,7 @@ import { hash } from 'bcryptjs'
 import { tryCatch } from 'ramda'
 import { users } from '../../../src/utils/functions'
 
-const { extractUser, setAuthCookie, insertUser } = users
+const { extractUser, setAuthCookie } = users
 
 const query =
   'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING user_id, username, email, created_at'
