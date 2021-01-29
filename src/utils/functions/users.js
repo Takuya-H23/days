@@ -1,7 +1,6 @@
 import { prop, head, compose } from 'ramda'
 import jwt from 'jsonwebtoken'
 import IO from 'crocks/IO'
-import Async from 'crocks/Async'
 import { AUTH_COOKIE } from '../locale/constants'
 
 const cookieConfig = {

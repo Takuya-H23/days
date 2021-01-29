@@ -1,5 +1,4 @@
 import { hash } from 'bcryptjs'
-import { tryCatch } from 'ramda'
 import { users } from '../../../src/utils/functions'
 
 const { extractUser, setAuthCookie } = users
