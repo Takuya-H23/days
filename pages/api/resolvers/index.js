@@ -2,7 +2,8 @@ import signUp from './signUp'
 
 export default {
   Query: {
-    user: async () => {
+    // eslint-disable-next-line no-unused-vars
+    user: async (_, args) => {
       const user = await pool.query('SELECT * FROM users')
 
       return user.rows[0]

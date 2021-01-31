@@ -1,12 +1,6 @@
-import { setAuthCookie } from '../users'
 import jwt from 'jsonwebtoken'
+import { setAuthCookie, cookieConfig } from '../users'
 import { AUTH_COOKIE } from '../../locale/constants'
-
-const cookieConfig = {
-  httpOnly: true,
-  sameSite: 'strict',
-  maxAge: 6 * 60 * 60
-}
 
 const password = 'myHashedPassword'
 

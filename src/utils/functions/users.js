@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import IO from 'crocks/IO'
 import { AUTH_COOKIE } from '../locale/constants'
 
-const cookieConfig = {
+export const cookieConfig = {
   httpOnly: true,
   sameSite: 'strict',
   maxAge: 6 * 60 * 60
