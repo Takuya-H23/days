@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["functional"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:functional/external-recommended",
+    "plugin:functional/recommended",
+    "plugin:functional/stylitic"
+  ],
+  "rules": {
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+    "no-undef": "off"
+  }
+}
