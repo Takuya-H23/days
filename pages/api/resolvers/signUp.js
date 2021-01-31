@@ -1,26 +1,32 @@
 import { hash } from 'bcryptjs'
+import Either from 'crocks/Either'
 import { users } from '../../../src/utils/functions'
 
-const { extractUser, setAuthCookie } = users
+const { signUpUser, genToken, setAuthCookie } = users
 
-const query =
-  'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING user_id, username, email, created_at'
+const getError = e => {
+  // eslint-disable-next-line functional/no-throw-statement
+  throw new Error(e.detail)
+}
 
 export default async function signUp(_, { input }, { cookies, pool }) {
   const { username, email, password } = input
   const hashed = await hash(password, 10)
+  const generateToken = genToken(process.env.JWT_SECRET)
 
-  try {
-    const res = await pool.query(query, [username, email, hashed])
-    const user = extractUser(res)
+  const userEither = await signUpUser(pool, [username, email, hashed])
+    .toPromise()
+    .then(Either.Right)
+    .catch(Either.Left)
 
-    setAuthCookie(cookies)({
-      id: user.user_id,
-      secret: process.env.JWT_SECRET
-    }).run()
+  const setCookie = ({ user, token }) => (
+    setAuthCookie(cookies)(token).run(), user
+  )
 
-    return user
-  } catch (e) {
-    return e
-  }
+  return userEither
+    .map(user => ({
+      user,
+      token: generateToken(user.user_id)
+    }))
+    .either(getError, setCookie)
 }
