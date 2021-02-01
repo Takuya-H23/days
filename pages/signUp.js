@@ -1,15 +1,19 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { Button, LinearProgress, Typography } from '@material-ui/core'
+import { Box, Button, LinearProgress, Typography } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 import { isEmpty } from 'ramda'
 import { Layout } from '../src/components'
 import { Field } from '../src/elements'
 import { useForm, useSignUp } from '../src/hooks'
 import { validations } from '../src/utils/functions'
+import { ROUTES } from '../src/utils/locale/constants'
 
 const iv = { username: '', email: '', password: '' }
 
 export default function SignUp() {
+  const router = useRouter()
   const [input, handleChange] = useForm(iv)
   const [errors, setErrors] = useState({})
   const mutation = useSignUp({ input })
@@ -26,7 +30,9 @@ export default function SignUp() {
     isEmpty(res) ? mutation.mutate() : setErrors(res)
   }
 
-  console.log(mutation)
+  if (mutation.isSuccess) {
+    router.push(ROUTES.DASHBOARD.URL)
+  }
 
   return (
     <Layout>
@@ -35,6 +41,12 @@ export default function SignUp() {
       <Typography variant="body1">
         Start your developer tool from here!
       </Typography>
+      {mutation.isError &&
+        mutation.error.response.errors.map(({ message }, idx) => (
+          <Box my={2} key={message.concat(idx)}>
+            <Alert severity="error">{message}</Alert>
+          </Box>
+        ))}
       <form onSubmit={onSubmit}>
         <Field
           name="username"
@@ -64,7 +76,7 @@ export default function SignUp() {
       </form>
       <Typography variant="body1">
         Already have an account? Login from{' '}
-        <Link href="/">
+        <Link href={ROUTES.SIGN_IN.URL}>
           <a>here</a>
         </Link>
       </Typography>
