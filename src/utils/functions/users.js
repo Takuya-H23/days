@@ -7,7 +7,7 @@ import { AUTH_COOKIE } from '../locale/constants'
 export const cookieConfig = {
   httpOnly: true,
   sameSite: 'strict',
-  maxAge: 6 * 60 * 60
+  maxAge: 1000 * 60 * 60 * 24 * 7
 }
 
 const signUpQuery =

@@ -10,6 +10,10 @@
   "rules": {
     "semi": ["error", "never"],
     "quotes": ["error", "single"],
-    "no-undef": "off"
+    "no-unused-vars": "off",
+    "functional/no-conditional-statement": "off",
+    "functional/functional-parameters": "off",
+    "functional/no-expression-statement": "off",
+    "functional/immutable-data": "off"
   }
 }

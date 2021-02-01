@@ -1,9 +1,9 @@
-import { createMuiTheme } from "@material-ui/core"
+import { createMuiTheme } from '@material-ui/core'
 
 export const dark = createMuiTheme({
-  type: "dark"
+  type: 'dark'
 })
 
 export const light = createMuiTheme({
-  type: "light"
+  type: 'light'
 })
