@@ -1,11 +1,5 @@
 import Link from 'next/link'
-import {
-  Button,
-  CircularProgress,
-  TextField,
-  Typography
-} from '@material-ui/core'
-import { AccountBox, Email, VisibilityOff } from '@material-ui/icons'
+import { Button, CircularProgress, Typography } from '@material-ui/core'
 import { Layout } from '../src/components'
 import { Field } from '../src/elements'
 import { useForm, useSignUp } from '../src/hooks'
@@ -23,7 +17,7 @@ export default function SignUp() {
 
   if (mutation.isLoading) return <CircularProgress />
   if (mutation.isError) {
-    return <Typography variant="h1">Something went wrong</Typography>
+    return <Typography variant="h1">something went wrong</Typography>
   }
 
   return (
@@ -34,7 +28,12 @@ export default function SignUp() {
       </Typography>
       <form onSubmit={onSubmit}>
         <Field name="username" onChange={handleChange} value={input.username} />
-        <Field name="email" onChange={handleChange} value={input.email} />
+        <Field
+          name="email"
+          onChange={handleChange}
+          value={input.email}
+          type="email"
+        />
         <Field.Password
           name="password"
           onChange={handleChange}
