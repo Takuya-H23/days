@@ -1,2 +1,2 @@
 export * as users from './users'
-export * as validations from './validations'
+export { default as validations } from './validations'

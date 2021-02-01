@@ -11,7 +11,6 @@
     "semi": ["error", "never"],
     "quotes": ["error", "single"],
     "no-unused-vars": "off",
-    "no-undef": "off",
     "functional/no-conditional-statement": "off",
     "functional/functional-parameters": "off",
     "functional/no-expression-statement": "off"
