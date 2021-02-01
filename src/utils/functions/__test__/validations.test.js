@@ -1,6 +1,4 @@
-import validations from '../validations'
-
-const { isEmail, isPassword, isPresent } = validations
+import validations, { isEmail, isPassword, isPresent } from '../validations'
 
 test.each([['lol'], ['@test.com'], ['lol@test'], ['lol@.com']])(
   'should check return false for invalid email',
@@ -38,5 +36,30 @@ test.each([['hello'], ['john doe'], [' foo bar ']])(
   'should return true for a valid string',
   arg => {
     expect(isPresent(arg)).toBeTruthy()
+  }
+)
+
+test.each([[''], ['lol.com'], ['email@testcom'], ['hello@example.com', true]])(
+  'should validate email',
+  (value, expectations = false) => {
+    expect(validations.email.run(value)).toBe(expectations)
+  }
+)
+
+test.each([
+  [''],
+  ['pass'],
+  ['  pass123'],
+  ['myPasswordLengthMustBeLessThan16'],
+  ['password', true],
+  ['pass1234', true]
+])('should validate password', (value, expectations = false) => {
+  expect(validations.password.run(value)).toBe(expectations)
+})
+
+test.each([[''], [' '], ['valid', true]])(
+  'should validate username',
+  (value, expectations = false) => {
+    expect(validations.username.run(value)).toBe(expectations)
   }
 )

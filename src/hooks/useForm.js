@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import validations from '../utils/functions'
 
 export default function useForm(iv) {
   const [input, setInput] = useState(iv)
