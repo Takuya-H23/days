@@ -1,5 +1,5 @@
 import { createElement, useState } from 'react'
-import { Box, IconButton, TextField } from '@material-ui/core'
+import { Box, FormHelperText, IconButton, TextField } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import {
   AccountBox,
@@ -16,7 +16,7 @@ const icons = {
   text: Visibility
 }
 
-function Field({ name, value, onChange, type, ...rest }) {
+function Field({ name, value, onChange, type, helperText, ...rest }) {
   const cls = useStyles()
   return (
     <TextField
@@ -29,6 +29,7 @@ function Field({ name, value, onChange, type, ...rest }) {
           <Box className={cls.root}>{createElement(icons[name])}</Box>
         )
       }}
+      helperText={helperText}
       label={name}
       variant="outlined"
       fullWidth
@@ -37,16 +38,13 @@ function Field({ name, value, onChange, type, ...rest }) {
   )
 }
 
-const withPassword = Component => ({ name, value, onChange }) => {
+const withPassword = Component => props => {
   const [inputType, setInputType] = useState('password')
   const handleIconClick = () =>
     setInputType(inputType === 'password' ? 'text' : 'password')
 
   return (
     <Component
-      name={name}
-      value={value}
-      onChange={onChange}
       type={inputType}
       InputProps={{
         endAdornment: (
@@ -55,7 +53,7 @@ const withPassword = Component => ({ name, value, onChange }) => {
           </IconButton>
         )
       }}
-      label={name}
+      {...props}
     />
   )
 }
@@ -63,14 +61,16 @@ const withPassword = Component => ({ name, value, onChange }) => {
 Field.Password = withPassword(Field)
 
 Field.defaultProps = {
-  type: 'text'
+  type: 'text',
+  helperText: ' '
 }
 
 Field.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  type: PropTypes.string
+  type: PropTypes.string,
+  helperText: PropTypes.string
 }
 
 export default Field

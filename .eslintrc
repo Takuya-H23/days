@@ -13,6 +13,7 @@
     "no-unused-vars": "off",
     "functional/no-conditional-statement": "off",
     "functional/functional-parameters": "off",
-    "functional/no-expression-statement": "off"
+    "functional/no-expression-statement": "off",
+    "functional/immutable-data": "off"
   }
 }
