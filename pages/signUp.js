@@ -5,7 +5,7 @@ import { Box, Button, LinearProgress, Typography } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { isEmpty } from 'ramda'
 import { Layout } from '../src/components'
-import { Field } from '../src/elements'
+import { Field, Form } from '../src/elements'
 import { useForm, useSignUp } from '../src/hooks'
 import { validations } from '../src/utils/functions'
 import { ROUTES } from '../src/utils/locale/constants'
@@ -47,7 +47,7 @@ export default function SignUp() {
             <Alert severity="error">{message}</Alert>
           </Box>
         ))}
-      <form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <Field
           name="username"
           onChange={handleChange}
@@ -73,7 +73,7 @@ export default function SignUp() {
         <Button variant="contained" type="submit" onClick={onSubmit}>
           Sign up
         </Button>
-      </form>
+      </Form>
       <Typography variant="body1">
         Already have an account? Login from{' '}
         <Link href={ROUTES.SIGN_IN.URL}>
