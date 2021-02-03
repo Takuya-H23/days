@@ -1,5 +1,5 @@
 import { createElement, useState } from 'react'
-import { Box, FormHelperText, IconButton, TextField } from '@material-ui/core'
+import { Box, Grid, IconButton, TextField } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import {
   AccountBox,
@@ -16,25 +16,35 @@ const icons = {
   text: Visibility
 }
 
-function Field({ name, value, onChange, type, helperText, ...rest }) {
+function Field({
+  name,
+  value,
+  onChange,
+  type,
+  helperText,
+  GridItemProps,
+  ...rest
+}) {
   const cls = useStyles()
   return (
-    <TextField
-      name={name}
-      value={value}
-      onChange={onChange}
-      type={type}
-      InputProps={{
-        endAdornment: (
-          <Box className={cls.root}>{createElement(icons[name])}</Box>
-        )
-      }}
-      helperText={helperText}
-      label={name}
-      variant="outlined"
-      fullWidth
-      {...rest}
-    />
+    <Grid item {...GridItemProps}>
+      <TextField
+        name={name}
+        value={value}
+        onChange={onChange}
+        type={type}
+        InputProps={{
+          endAdornment: (
+            <Box className={cls.root}>{createElement(icons[name])}</Box>
+          )
+        }}
+        helperText={helperText}
+        label={name}
+        variant="outlined"
+        fullWidth
+        {...rest}
+      />
+    </Grid>
   )
 }
 
@@ -61,11 +71,13 @@ const withPassword = Component => props => {
 Field.Password = withPassword(Field)
 
 Field.defaultProps = {
+  GridItemProps: { xs: 12, sm: 12, md: 12, lg: 12, xl: 12 },
   type: 'text',
   helperText: ' '
 }
 
 Field.propTypes = {
+  GridItemProps: PropTypes.object,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
