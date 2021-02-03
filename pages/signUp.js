@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { Box, Button, LinearProgress, Typography } from '@material-ui/core'
+import { Box, LinearProgress, Typography } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { isEmpty } from 'ramda'
-import { Layout } from '../src/components'
-import { Field, Form } from '../src/elements'
+import { Layout, SignUpForm } from '../src/components'
 import { useForm, useSignUp } from '../src/hooks'
 import { validations } from '../src/utils/functions'
 import { ROUTES } from '../src/utils/locale/constants'
@@ -47,33 +46,12 @@ export default function SignUp() {
             <Alert severity="error">{message}</Alert>
           </Box>
         ))}
-      <Form onSubmit={onSubmit}>
-        <Field
-          name="username"
-          onChange={handleChange}
-          value={input.username}
-          error={Boolean(errors.username)}
-          helperText={errors.username || ' '}
-        />
-        <Field
-          name="email"
-          onChange={handleChange}
-          error={Boolean(errors.email)}
-          helperText={errors.email || ' '}
-          value={input.email}
-          type="email"
-        />
-        <Field.Password
-          name="password"
-          onChange={handleChange}
-          value={input.password}
-          error={Boolean(errors.password)}
-          helperText="Password must contain 8 to 16 characters"
-        />
-        <Button variant="contained" type="submit" onClick={onSubmit}>
-          Sign up
-        </Button>
-      </Form>
+      <SignUpForm
+        input={input}
+        errors={errors}
+        handleChange={handleChange}
+        onSubmit={onSubmit}
+      />
       <Typography variant="body1">
         Already have an account? Login from{' '}
         <Link href={ROUTES.SIGN_IN.URL}>
