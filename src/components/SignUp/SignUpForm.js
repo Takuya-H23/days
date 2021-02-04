@@ -37,4 +37,9 @@ export default function SignUpForm({ errors, input, handleChange, onSubmit }) {
   )
 }
 
-SignUpForm.propTypes = {}
+SignUpForm.propTypes = {
+  input: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
+}

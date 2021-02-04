@@ -9,8 +9,19 @@ export const isPassword = password => {
   return length >= 8 && length <= 16
 }
 
-export default {
+const validations = {
   username: Predicate.of(isPresent),
   email: Predicate.of(isPresent).concat(Predicate.of(isEmail)),
   password: Predicate.of(isPresent).concat(Predicate.of(isPassword))
 }
+
+const validate = input =>
+  Object.entries(input).reduce(
+    (acc, [key, value]) =>
+      validations[key].run(value)
+        ? acc
+        : { ...acc, [key]: `Please enter a valid ${key}` },
+    {}
+  )
+
+export default validate

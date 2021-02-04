@@ -5,7 +5,7 @@ import { Box, LinearProgress } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import SignUpForm from './SignUpForm'
 import { useForm, useSignUp } from '../../hooks'
-import { validations } from '../../utils/functions'
+import { validate } from '../../utils/functions'
 import { ROUTES } from '../../utils/locale/constants'
 import useStyles from './useStyles'
 
@@ -20,13 +20,7 @@ export default function SignUp() {
 
   const onSubmit = e => {
     e.preventDefault()
-    const res = Object.entries(input).reduce(
-      (acc, [key, value]) =>
-        validations[key].run(value)
-          ? acc
-          : { ...acc, [key]: `Please enter a valid ${key}` },
-      {}
-    )
+    const res = validate(input)
     isEmpty(res) ? mutation.mutate() : setErrors(res)
   }
 
