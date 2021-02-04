@@ -30,7 +30,6 @@ export default function Index() {
   const { status, data, error, isFetching } = useUsers()
   const router = useRouter()
   if (isFetching) return <div>Loading...</div>
-  console.log(data)
 
   return (
     <Layout>
