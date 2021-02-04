@@ -1,4 +1,10 @@
-import validations, { isEmail, isPassword, isPresent } from '../validations'
+import {
+  isEmail,
+  isPassword,
+  isPresent,
+  validate,
+  validations
+} from '../validations'
 
 test.each([['lol'], ['@test.com'], ['lol@test'], ['lol@.com']])(
   'should check return false for invalid email',
@@ -63,3 +69,25 @@ test.each([[''], [' '], ['valid', true]])(
     expect(validations.username.run(value)).toBe(expectations)
   }
 )
+
+test('should not generate error messages', () => {
+  const input = {
+    username: 'john doe',
+    password: 'goodPassword',
+    email: 'foo@lol.com'
+  }
+  expect(validate(input)).toEqual({})
+})
+
+test('should generate error messages', () => {
+  const input = {
+    username: 'john doe',
+    password: 'noGood',
+    email: 'noValidEmail'
+  }
+  const res = validate(input)
+  expect(res).toEqual({
+    password: 'Please enter a valid password',
+    email: 'Please enter a valid email'
+  })
+})
