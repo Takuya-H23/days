@@ -8,6 +8,7 @@ export default gql`
 
   type Mutation {
     signUp(input: SignUpInput): User!
+    signIn(input: SignInInput): User!
   }
 
   type User {
@@ -20,6 +21,11 @@ export default gql`
 
   input SignUpInput {
     username: String!
+    email: String!
+    password: String!
+  }
+
+  input SignInInput {
     email: String!
     password: String!
   }
