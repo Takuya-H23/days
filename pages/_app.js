@@ -1,15 +1,16 @@
-import { QueryClientProvider, QueryClient } from "react-query"
-import { useEffect } from "react"
-import Head from "next/head"
-import { ThemeProvider } from "@material-ui/core"
-import { dark } from "../src/utils/theme"
-import "../styles/globals.css"
+import { QueryClientProvider, QueryClient } from 'react-query'
+import { useEffect } from 'react'
+import Head from 'next/head'
+import { ThemeProvider } from '@material-ui/core'
+import { dark } from '../src/utils/theme'
+import '../styles/globals.css'
 
 const queryClient = new QueryClient()
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
-    const jssStyles = document.querySelector("#jss-server-side")
+    // eslint-disable-next-line no-undef
+    const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles)
     }
