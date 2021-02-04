@@ -3,7 +3,12 @@ import { Grid } from '@material-ui/core'
 
 export default function Form({ onSubmit, children, GridContainerProps }) {
   return (
-    <Grid container {...GridContainerProps} component="form">
+    <Grid
+      container
+      onSubmit={onSubmit}
+      {...GridContainerProps}
+      component="form"
+    >
       {children}
     </Grid>
   )
