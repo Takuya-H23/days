@@ -1,16 +1,11 @@
 import { compareSync } from 'bcryptjs'
 import Either from 'crocks/Either'
-import { identity } from 'ramda'
 import { users } from '../../../src/utils/functions'
+import { errors } from '../../../src/utils/procedures'
 
 const { genToken, setAuthCookie, signInUser } = users
 const notFound = {
   detail: 'User not found. Please make sure your email and password are correct'
-}
-
-const getError = e => {
-  // eslint-disable-next-line functional/no-throw-statement
-  throw new Error(e.detail || 'Something went wrong from getError...')
 }
 
 export default async function (_, { input }, { cookies, pool }) {
@@ -21,8 +16,7 @@ export default async function (_, { input }, { cookies, pool }) {
     setAuthCookie(cookies)(token).run(), user
   )
 
-  const userEither = await users
-    .signInUser(pool, [email])
+  const userEither = await signInUser(pool, [email])
     .toPromise()
     .then(user => (user ? Either.Right(user) : Either.Left(notFound)))
     .catch(Either.Left)
@@ -34,5 +28,5 @@ export default async function (_, { input }, { cookies, pool }) {
         : Either.Left(notFound)
     )
     .map(user => ({ user, token: generateToken(user.user_id) }))
-    .either(getError, setCookie)
+    .either(errors.throwDetailError, setCookie)
 }
