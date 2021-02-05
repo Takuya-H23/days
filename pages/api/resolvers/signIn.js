@@ -3,7 +3,7 @@ import Either from 'crocks/Either'
 import { identity } from 'ramda'
 import { users } from '../../../src/utils/functions'
 
-const { signInUser } = users
+const { genToken, setAuthCookie, signInUser } = users
 const notFound = {
   detail: 'User not found. Please make sure your email and password are correct'
 }
@@ -15,6 +15,12 @@ const getError = e => {
 
 export default async function (_, { input }, { cookies, pool }) {
   const { email, password } = input
+  const generateToken = genToken(process.env.JWT_SECRET)
+
+  const setCookie = ({ user, token }) => (
+    setAuthCookie(cookies)(token).run(), user
+  )
+
   const userEither = await users
     .signInUser(pool, [email])
     .toPromise()
@@ -27,7 +33,6 @@ export default async function (_, { input }, { cookies, pool }) {
         ? Either.Right(user)
         : Either.Left(notFound)
     )
-    .either(getError, identity)
-
-  // return { username: 'hey', email: 'hey', created_at: 'hey' }
+    .map(user => ({ user, token: generateToken(user.user_id) }))
+    .either(getError, setCookie)
 }
