@@ -1,13 +1,9 @@
 import { hash } from 'bcryptjs'
 import Either from 'crocks/Either'
 import { users } from '../../../src/utils/functions'
+import { errors } from '../../../src/utils/procedures'
 
 const { signUpUser, genToken, setAuthCookie } = users
-
-const getError = e => {
-  // eslint-disable-next-line functional/no-throw-statement
-  throw new Error(e.detail)
-}
 
 export default async function signUp(_, { input }, { cookies, pool }) {
   const { username, email, password } = input
@@ -28,5 +24,5 @@ export default async function signUp(_, { input }, { cookies, pool }) {
       user,
       token: generateToken(user.user_id)
     }))
-    .either(getError, setCookie)
+    .either(errors.throwDetailError, setCookie)
 }

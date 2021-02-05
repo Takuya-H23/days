@@ -13,18 +13,28 @@ export const cookieConfig = {
 const signUpQuery =
   'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING user_id, username, email, created_at'
 
+const signInQuery = 'SELECT * FROM users WHERE email = $1'
+
+const genAsync = query => (pool, input) =>
+  Async((rej, res) => pool.query(query, input).then(res).catch(rej)).map(
+    extractUser
+  )
+
 // extractUser:: [a] -> a
 export const extractUser = compose(head, prop('rows'))
 
-// genToken:: ({ string, string}) -> string
+// genToken:: string -> string -> string
 export const genToken = secret => id => jwt.sign({ id }, secret)
 
-// a -> b -> IO c
+// setAuthCookie:: a -> b -> IO c
 export const setAuthCookie = cookies => token =>
   IO.of(token).map(token => cookies.set(AUTH_COOKIE, token, cookieConfig))
 
-// a, b -> Async c
+// signUpUser:: a, b -> Async c
 export const signUpUser = (pool, input) =>
   Async((rej, res) => pool.query(signUpQuery, input).then(res).catch(rej)).map(
     extractUser
   )
+
+// signInUser:: a -> a, b -> Async c
+export const signInUser = genAsync(signInQuery)
