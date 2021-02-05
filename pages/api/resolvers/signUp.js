@@ -5,6 +5,7 @@ import { users } from '../../../src/utils/functions'
 const { signUpUser, genToken, setAuthCookie } = users
 
 const getError = e => {
+  console.log(e)
   // eslint-disable-next-line functional/no-throw-statement
   throw new Error(e.detail)
 }
