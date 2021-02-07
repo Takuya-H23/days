@@ -11,7 +11,7 @@ export const ROUTES = {
     LABEL: 'Sign in'
   },
   SIGN_UP: {
-    URL: '/signUP',
+    URL: '/signUp',
     LABEL: 'Sign up'
   }
 }
