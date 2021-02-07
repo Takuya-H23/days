@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Button } from '@material-ui/core'
 import { isEmpty } from 'ramda'
 import { useForm, useSignIn } from '../../hooks'
 import { Field, Form } from '../../elements'
@@ -20,8 +21,6 @@ export default function SignIn() {
     isEmpty(res) ? mutation.mutate() : setErrors(res)
   }
 
-  console.log(mutation)
-
   return (
     <Form onSubmit={onSubmit}>
       <Field
@@ -38,7 +37,9 @@ export default function SignIn() {
         onChange={handleChange}
         helperText={getErrorText('password')}
       />
-      <button onSubmit={onSubmit}>Submit</button>
+      <Button variant="contained" type="submit" onClick={onSubmit}>
+        Sign up
+      </Button>
     </Form>
   )
 }
