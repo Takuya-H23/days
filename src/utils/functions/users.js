@@ -13,7 +13,7 @@ export const cookieConfig = {
 const signUpQuery =
   'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING user_id, username, email, created_at'
 
-const signInQuery = 'SELECT * FROM users WHERE email = $1'
+const signQuery = 'SELECT * FROM users WHERE email = $1'
 
 const genAsync = query => (pool, input) =>
   Async((rej, res) => pool.query(query, input).then(res).catch(rej)).map(
@@ -36,5 +36,5 @@ export const signUpUser = (pool, input) =>
     extractUser
   )
 
-// signInUser:: a -> a, b -> Async c
-export const signInUser = genAsync(signInQuery)
+// queryUser:: a -> a, b -> Async c
+export const queryUser = genAsync(signQuery)

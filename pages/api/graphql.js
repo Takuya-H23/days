@@ -28,11 +28,11 @@ const apolloServer = new ApolloServer({
   context: ({ req, res }) => {
     const cookies = new Cookies(req, res)
     const token = test(cookies.get(AUTH_COOKIE))
-    const userId = tokenEither(token).map(prop('id')).either(identity, identity)
+    const userIdEither = tokenEither(token).map(prop('id'))
 
     return {
       cookies,
-      userId,
+      userIdEither,
       pool
     }
   }

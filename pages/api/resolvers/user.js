@@ -1,8 +1,6 @@
-import { isNil } from 'ramda'
+import Async from 'crocks/Async'
+import { queryUser } from '../../../src/utils/functions/users'
 
-export default async function user(_, __, { userId }) {
-  if (isNil(userId)) {
-    throw new Error('error')
-  }
+export default async function user(_, __, { userIdEither, pool }) {
   return { user_id: 'id', username: 'hi', email: 'hi', created_at: 'hi' }
 }
