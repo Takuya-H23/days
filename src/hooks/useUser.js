@@ -1,20 +1,20 @@
-import { useEffect } from "react"
-import Router from "next/router"
-import { useQuery } from "react-query"
-import { request, gql } from "graphql-request"
+import { useEffect } from 'react'
+import Router from 'next/router'
+import { useQuery } from 'react-query'
+import { request, gql } from 'graphql-request'
 
-const endpoint = "/api/graphql"
+const endpoint = '/api/graphql'
 
-function fetchUsers() {
-  return useQuery("users", async () => {
+function fetchUser() {
+  return useQuery('user', async () => {
     const data = await request(
       endpoint,
       gql`
         query {
-          users {
+          user {
             user_id
-            full_name
-            last_login
+            username
+            email
             created_at
           }
         }
@@ -25,9 +25,10 @@ function fetchUsers() {
 }
 
 export default function useUser(redirectTo) {
-  const { status, data, error, isFetching } = fetchUsers()
+  return fetchUser()
+  // const { status, data, error, isFetching } = fetchUsers()
 
-  useEffect(() => {}, [isFetching, redirectTo])
+  // useEffect(() => {}, [isFetching, redirectTo])
 
-  return { user, isFetching, error }
+  // return { user, isFetching, error }
 }
