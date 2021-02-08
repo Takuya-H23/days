@@ -20,7 +20,8 @@ const authenticateUser = token => jwt.verify(token, process.env.JWT_SECRET)
 
 const test = tryCatch(authenticateUser, returnNull)
 
-const tokenEither = x => (isNil(x) ? Either.Left(x) : Either.Right(x))
+const tokenEither = x =>
+  isNil(x) ? Either.Left('Token not found') : Either.Right(x)
 
 const apolloServer = new ApolloServer({
   typeDefs,

@@ -3,7 +3,7 @@ import Either from 'crocks/Either'
 import { users } from '../../../src/utils/functions'
 import { errors } from '../../../src/utils/procedures'
 
-const { genToken, setAuthCookie, queryUser } = users
+const { genToken, setAuthCookie, signInUser } = users
 
 const notFound =
   'User not found. Please make sure your email and password are correct'
@@ -21,7 +21,7 @@ export default async function (_, { input }, { cookies, pool }) {
     return new Error(x)
   }
 
-  const userEither = await queryUser(pool, [email])
+  const userEither = await signInUser(pool, [email])
     .toPromise()
     .then(user => (user ? Either.Right(user) : Either.Left(notFound)))
     .catch(Either.Left)
